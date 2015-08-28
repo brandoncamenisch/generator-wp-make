@@ -5,7 +5,7 @@
 	colors="false">
 	<testsuites>
 		<testsuite name="Default">
-			<directory suffix="Tests.php">./tests/phpunit</directory>
+			<directory suffix="Tests.php">./tests/php/phpunit</directory>
 		</testsuite>
 	</testsuites>
 	<filter>

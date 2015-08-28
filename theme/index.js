@@ -74,12 +74,6 @@ var ThemeGenerator = yeoman.generators.Base.extend({
 			{
 				name:    'authorUrl',
 				message: 'Author URL'
-			},
-			{
-				type:    'confirm',
-				name:    'sass',
-				message: 'Use Sass?',
-				default: true
 			}
 		];
 		// gather initial settings
@@ -94,11 +88,6 @@ var ThemeGenerator = yeoman.generators.Base.extend({
 	},
 
 	autoprefixer: function() {
-		// If we're running Sass, automatically use autoprefixer.
-		if ( this.opts.sass ) {
-			this.opts.autoprefixer = true;
-			return;
-		}
 
 		// See if we want to use it on it's own, but only if not using Sass.
 		var done = this.async();
@@ -123,43 +112,59 @@ var ThemeGenerator = yeoman.generators.Base.extend({
 		this.template( '../../shared/theme/_core.php', 'includes/functions/core.php' );
 		this.template( '../../shared/theme/_humans.txt', 'humans.txt' );
 		this.copy( 'theme/screenshot.png', 'screenshot.png' );
-		this.copy( '../../shared/theme/readme-includes.md', 'includes/readme.md' );
 	},
 
 	i18n: function() {
 		this.template( '../../shared/i18n/_language.pot', 'languages/' + this.opts.funcPrefix + '.pot' );
 	},
 
-	images: function() {
-		this.copy( '../../shared/images/readme.md', 'images/readme.md' );
-		this.copy( '../../shared/images/readme-sources.md', 'images/src/readme.md' );
-	},
-
-	js: function() {
+	assets: function() {
+		//JS
 		this.template( '../../shared/js/_script.js', 'assets/js/src/' + this.fileSlug + '.js' );
-		this.copy( '../../shared/js/readme-vendor.md', 'assets/js/vendor/readme.md' );
+		//SCSS
+		//Global
+		this.template( 'css/_global.css', 'assets/css/scss/global/global.scss' );
+		//Base
+		this.template( 'css/_reset.css', 'assets/css/scss/global/reset.scss' );
+		this.template( 'css/_typography.css', 'assets/css/scss/global/typography.scss' );
+		this.template( 'css/_icons.css', 'assets/css/scss/global/icons.scss' );
+		this.template( 'css/_wordpress.css', 'assets/css/scss/global/wordpress.scss' );
+		//Components
+		this.template( 'css/_buttons.css', 'assets/css/scss/components/buttons.scss' );
+		this.template( 'css/_callouts.css', 'assets/css/scss/components/callouts.scss' );
+		this.template( 'css/_toggles.css', 'assets/css/scss/components/toggles.scss' );
+		//Layout
+		this.template( 'css/_header.css', 'assets/css/scss/layout/header.scss' );
+		this.template( 'css/_footer.css', 'assets/css/scss/layout/footer.scss' );
+		this.template( 'css/_sidebar.css', 'assets/css/scss/layout/sidebar.scss' );
+		//Templates
+		this.template( 'css/_home-page.css', 'assets/css/scss/templates/home-page.scss' );
+		this.template( 'css/_single.css', 'assets/css/scss/templates/single.scss' );
+		this.template( 'css/_archives.css', 'assets/css/scss/templates/archives.scss' );
+		this.template( 'css/_blog.css', 'assets/css/scss/templates/blog.scss' );
+		//Admin
+		this.template( 'css/_admin.css', 'assets/css/scss/admin/admin.scss' );
+		//Editor
+		this.template( 'css/_editor.css', 'assets/css/scss/templates/editor.scss' );
+		//General
+		this.template( 'css/_project.css', 'assets/css/scss/' + this.fileSlug + '.scss' );
+		this.template( 'css/_editor-style.css', 'assets/css/scss/' + this.fileSlug + '-editor-style.scss' );
+		this.template( 'css/_project-admin.css', 'assets/css/scss/' + this.fileSlug + '-admin.scss' );
 	},
 
-	css: function() {
-		if ( this.opts.sass ) {
-			this.template( 'css/_style.css', 'assets/css/sass/' + this.fileSlug + '.scss' );
-		} else if ( this.opts.autoprefixer ) {
-			this.template( 'css/_style.css', 'assets/css/src/' + this.fileSlug + '.css' );
-		} else {
-			this.template( 'css/_style.css', 'assets/css/' + this.fileSlug + '.css' );
-		}
-		this.copy( '../../shared/css/readme.md', 'assets/css/readme.md' );
+	bin: function() {
+		this.template( 'bin/_class-wp-cli-utils.php', 'bin/class-wp-cli-utils.php' );
 	},
 
 	tests: function() {
 		//phpunit
-		this.template( '../../shared/tests/phpunit/_Core_Tests.php', 'tests/phpunit/Core_Tests.php' );
-		this.template( '../../shared/tests/phpunit/_TestCase.php', 'tests/phpunit/test-tools/TestCase.php' );
+		this.template( '../../shared/tests/phpunit/_Core_Tests.php', 'tests/php/phpunit/Core_Tests.php' );
+		this.template( '../../shared/tests/phpunit/_TestCase.php', 'tests/php/phpunit/test-tools/TestCase.php' );
 		this.template( '../../shared/tests/phpunit/_bootstrap.php', 'bootstrap.php.dist' );
 		this.copy( '../../shared/tests/phpunit/phpunit.xml.dist', 'phpunit.xml.dist' );
 		//qunit
-		this.template( '../../shared/tests/qunit/_test.html', 'tests/qunit/' + this.fileSlug + '.html' );
-		this.copy( '../../shared/tests/qunit/test.js', 'tests/qunit/tests/' + this.fileSlug + '.js' );
+		this.template( '../../shared/tests/qunit/_test.html', 'tests/js/qunit/' + this.fileSlug + '.html' );
+		this.copy( '../../shared/tests/qunit/test.js', 'tests/js/qunit/tests/' + this.fileSlug + '.js' );
 	},
 
 	grunt: function() {

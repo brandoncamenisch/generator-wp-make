@@ -156,7 +156,7 @@ module.exports = function( grunt ) {
 		},
 		phpunit: {
 			classes: {
-				dir: 'tests/phpunit/'
+				dir: 'tests/php/phpunit/'
 			},
 			options: {
 				bin: 'vendor/bin/phpunit',
