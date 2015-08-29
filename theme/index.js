@@ -125,10 +125,10 @@ var ThemeGenerator = yeoman.generators.Base.extend({
 		//Global
 		this.template( 'css/_global.css', 'assets/css/scss/global/global.scss' );
 		//Base
-		this.template( 'css/_reset.css', 'assets/css/scss/global/reset.scss' );
-		this.template( 'css/_typography.css', 'assets/css/scss/global/typography.scss' );
-		this.template( 'css/_icons.css', 'assets/css/scss/global/icons.scss' );
-		this.template( 'css/_wordpress.css', 'assets/css/scss/global/wordpress.scss' );
+		this.template( 'css/_reset.css', 'assets/css/scss/base/reset.scss' );
+		this.template( 'css/_typography.css', 'assets/css/scss/base/typography.scss' );
+		this.template( 'css/_icons.css', 'assets/css/scss/base/icons.scss' );
+		this.template( 'css/_wordpress.css', 'assets/css/scss/base/wordpress.scss' );
 		//Components
 		this.template( 'css/_buttons.css', 'assets/css/scss/components/buttons.scss' );
 		this.template( 'css/_callouts.css', 'assets/css/scss/components/callouts.scss' );
